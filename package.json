@@ -1,0 +1,27 @@
+{
+  "name": "certiq-ai",
+  "version": "0.1.0",
+  "description": "Local telemetry and model evaluation tools for AI applications.",
+  "type": "module",
+  "bin": {
+    "certiq-ai": "./dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "dev": "tsx src/cli.ts",
+    "start": "node dist/cli.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "packageManager": "pnpm@11.17.0"
+}
