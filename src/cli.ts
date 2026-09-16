@@ -8,6 +8,10 @@ const commands: Record<Command, string> = {
   help: "Show available commands."
 };
 
+/**
+ * description: Prints the available Certiq AI CLI commands and their descriptions.
+ * return: Nothing; help text is written to standard output.
+ */
 function printHelp(): void {
   console.log("Usage: certiq-ai <command>");
   console.log("");
@@ -17,6 +21,11 @@ function printHelp(): void {
   }
 }
 
+/**
+ * description: Dispatches a CLI command or reports an unknown command.
+ * arg1: command - Command name supplied by the user.
+ * return: Nothing; output and process status are updated as needed.
+ */
 function run(command: string | undefined): void {
   switch (command as Command | undefined) {
     case "analyze":

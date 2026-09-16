@@ -14,7 +14,7 @@
     "check": "tsc -p tsconfig.json --noEmit",
     "dev": "tsx src/cli.ts",
     "start": "node dist/cli.js",
-    "test": "tsx --test src/config.test.ts"
+    "test": "tsx --test src/config.test.ts src/providers/contract.test.ts"
   },
   "engines": {
     "node": ">=20"

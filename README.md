@@ -9,9 +9,10 @@ The repository currently contains the Phase 1 foundation:
 - TypeScript package and CLI entry point
 - `analyze` and `dashboard` placeholder commands
 - Validated configuration loading from process environment variables and `.env`
+- Common provider adapter contract for normalized requests, responses, usage, and errors
 - pnpm-based build, type-check, and test commands
 
-Provider adapters, telemetry persistence, analysis, and the dashboard are planned Phase 1 work. They are not available in the current build yet.
+Provider adapter implementations, telemetry persistence, analysis, and the dashboard are planned Phase 1 work. They are not available in the current build yet.
 
 ## Phase 1 Scope
 

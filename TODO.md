@@ -13,6 +13,10 @@ This file tracks remaining implementation work and features intentionally deferr
 - [ ] Add the single model configuration file with versioned pricing.
 - [x] Add environment configuration for database access and payload storage.
 
+## Phase 1 — Provider integrations
+
+- [x] Define the common provider adapter contract.
+
 ## Telemetry and storage
 
 - [ ] Implement best-effort telemetry writes using Vercel background execution and direct Postgres writes.

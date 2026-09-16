@@ -2,8 +2,17 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const providerNames = ["anthropic", "openai", "gemini"] as const;
+
+/**
+ * description: Identifies the providers supported by the Phase 1 configuration.
+ * return: A readonly list of provider identifiers.
+ */
 type ProviderName = (typeof providerNames)[number];
 
+/**
+ * description: Represents validated runtime configuration for Certiq AI.
+ * return: A complete application configuration value.
+ */
 export interface AppConfig {
   databaseUrl: string;
   databaseSsl: boolean;
@@ -16,14 +25,28 @@ export interface AppConfig {
   telemetryTimeoutMs: number;
 }
 
+/**
+ * description: Controls environment sources used by the configuration loader.
+ * return: Optional environment variables and dotenv file path.
+ */
 export interface LoadConfigOptions {
   env?: NodeJS.ProcessEnv;
   dotenvPath?: string;
 }
 
+/**
+ * description: Reports one or more configuration validation failures without exposing secret values.
+ * arg1: issues - Validation messages safe to display to the user.
+ * return: A configuration error instance.
+ */
 export class ConfigurationError extends Error {
   readonly issues: readonly string[];
 
+  /**
+   * description: Creates a configuration error containing all validation issues.
+   * arg1: issues - Validation messages safe to display to the user.
+   * return: A configured ConfigurationError instance.
+   */
   constructor(issues: string[]) {
     super(`Invalid Certiq AI configuration:\n${issues.map((issue) => `- ${issue}`).join("\n")}`);
     this.name = "ConfigurationError";
@@ -31,6 +54,11 @@ export class ConfigurationError extends Error {
   }
 }
 
+/**
+ * description: Reads simple KEY=VALUE entries from a dotenv file.
+ * arg1: path - Filesystem path to the dotenv file.
+ * return: Parsed environment values, or an empty object when the file is unavailable.
+ */
 function readDotenv(path: string): Record<string, string> {
   let contents: string;
   try {
@@ -58,12 +86,27 @@ function readDotenv(path: string): Record<string, string> {
   return values;
 }
 
+/**
+ * description: Reads a required configuration value and records a missing-value issue.
+ * arg1: values - Merged configuration values.
+ * arg2: key - Required environment variable name.
+ * arg3: issues - Mutable validation issue list.
+ * return: The trimmed value, or an empty string when missing.
+ */
 function readRequired(values: Record<string, string>, key: string, issues: string[]): string {
   const value = values[key]?.trim();
   if (!value) issues.push(`${key} is required.`);
   return value ?? "";
 }
 
+/**
+ * description: Reads and validates a boolean configuration value.
+ * arg1: values - Merged configuration values.
+ * arg2: key - Environment variable name.
+ * arg3: fallback - Value used when the variable is absent or invalid.
+ * arg4: issues - Mutable validation issue list.
+ * return: The parsed boolean or fallback value.
+ */
 function readBoolean(
   values: Record<string, string>,
   key: string,
@@ -78,6 +121,15 @@ function readBoolean(
   return fallback;
 }
 
+/**
+ * description: Reads and validates an integer configuration value within a range.
+ * arg1: values - Merged configuration values.
+ * arg2: key - Environment variable name.
+ * arg3: fallback - Value used when the variable is absent or invalid.
+ * arg4: range - Inclusive minimum and maximum values.
+ * arg5: issues - Mutable validation issue list.
+ * return: The parsed integer or fallback value.
+ */
 function readInteger(
   values: Record<string, string>,
   key: string,
@@ -96,6 +148,15 @@ function readInteger(
   return value;
 }
 
+/**
+ * description: Reads a configuration value constrained to an allowed set of strings.
+ * arg1: values - Merged configuration values.
+ * arg2: key - Environment variable name.
+ * arg3: fallback - Value used when the variable is absent or invalid.
+ * arg4: choices - Allowed configuration values.
+ * arg5: issues - Mutable validation issue list.
+ * return: The selected allowed value or fallback value.
+ */
 function readChoice<T extends string>(
   values: Record<string, string>,
   key: string,
@@ -112,6 +173,12 @@ function readChoice<T extends string>(
   return value;
 }
 
+/**
+ * description: Validates that a database URL uses a supported Postgres scheme.
+ * arg1: value - Database connection URL.
+ * arg2: issues - Mutable validation issue list.
+ * return: Nothing; validation failures are appended to issues.
+ */
 function validateDatabaseUrl(value: string, issues: string[]): void {
   try {
     const url = new URL(value);
@@ -123,6 +190,11 @@ function validateDatabaseUrl(value: string, issues: string[]): void {
   }
 }
 
+/**
+ * description: Loads, merges, and validates Certiq AI application configuration.
+ * arg1: options - Optional environment source overrides and dotenv path.
+ * return: Validated application configuration.
+ */
 export function loadConfig(options: LoadConfigOptions = {}): AppConfig {
   const dotenvValues = readDotenv(resolve(options.dotenvPath ?? ".env"));
   const values = { ...dotenvValues };

@@ -13,6 +13,10 @@ afterEach(() => {
   }
 });
 
+/**
+ * description: Creates the minimum valid environment used by configuration tests.
+ * return: Environment variables containing a database URL and provider key.
+ */
 function validEnvironment(): NodeJS.ProcessEnv {
   return {
     DATABASE_URL: "postgresql://user:password@localhost:5432/certiq",
