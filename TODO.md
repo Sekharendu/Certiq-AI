@@ -1,17 +1,17 @@
 # TBD — Implementation TODO
 
-This file tracks remaining implementation work and features intentionally deferred from the first usable version. The current project decisions and reasoning remain in `TBD-project-status.md`.
+This file tracks remaining implementation work and features intentionally deferred from the first usable version. The current project decisions and reasoning remain in `Certiq-ai-project-status.md`.
 
 ## Phase 1 — Core workflow
 
 - [ ] Decide the final product and package name.
-- [ ] Create the TypeScript package and CLI entry point.
+- [x] Create the TypeScript package and CLI entry point.
 - [ ] Add provider adapters for Anthropic Messages API and OpenAI Responses API.
 - [ ] Support non-streaming text requests.
 - [ ] Preserve the original provider response and error behavior.
 - [ ] Define and validate the normalized request and response schema.
 - [ ] Add the single model configuration file with versioned pricing.
-- [ ] Add environment configuration for database access and payload storage.
+- [x] Add environment configuration for database access and payload storage.
 
 ## Telemetry and storage
 
