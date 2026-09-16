@@ -2,19 +2,16 @@ export const providerIds = ["anthropic", "openai", "gemini"] as const;
 
 /**
  * description: Identifies a supported model provider.
- * return: A provider identifier from the supported provider set.
  */
 export type ProviderId = (typeof providerIds)[number];
 
 /**
  * description: Identifies the normalized message roles supported by the core workflow.
- * return: A system, user, or assistant role.
  */
 export type MessageRole = "system" | "user" | "assistant";
 
 /**
  * description: Represents provider-independent(means these interfaces use one common shape regardless of whether the request came from Anthropic, OpenAI, or Gemini.) text input.
- * return: A normalized message with role and text content.
  */
 export interface NormalizedMessage {
   role: MessageRole;
@@ -23,7 +20,6 @@ export interface NormalizedMessage {
 
 /**
  * description: Represents a provider-independent model request.
- * return: Normalized model identity, messages, and optional generation settings.
  */
 export interface NormalizedRequest {
   provider: ProviderId;
@@ -35,7 +31,6 @@ export interface NormalizedRequest {
 
 /**
  * description: Represents token counts returned by a provider.
- * return: Input, output, and total token counts.
  */
 export interface TokenUsage {
   inputTokens: number;
@@ -45,7 +40,6 @@ export interface TokenUsage {
 
 /**
  * description: Represents a provider-independent model response.
- * return: Response text, model identity, usage, and optional provider metadata.
  */
 export interface NormalizedResponse {
   provider: ProviderId;
@@ -58,7 +52,6 @@ export interface NormalizedResponse {
 
 /**
  * description: Categorizes normalized provider failures for core retry and reporting logic.
- * return: A provider-independent error category.
  */
 export type ProviderErrorKind =
   | "authentication"
@@ -70,7 +63,6 @@ export type ProviderErrorKind =
 
 /**
  * description: Represents a provider-independent error result.
- * return: Error category, safe message, retryability, and optional provider metadata.
  */
 export interface NormalizedProviderError {
   provider: ProviderId;
@@ -83,10 +75,6 @@ export interface NormalizedProviderError {
 
 /**
  * description: Defines the boundary that converts provider-specific shapes into core types.
- * arg1: request - Provider-specific request shape.
- * arg2: response - Provider-specific response shape.
- * arg3: error - Provider-specific error value.
- * return: Normalized request, response, or error values.
  */
 export interface ProviderAdapter<TRequest = unknown, TResponse = unknown> {
   readonly provider: ProviderId;
@@ -97,21 +85,17 @@ export interface ProviderAdapter<TRequest = unknown, TResponse = unknown> {
 
 /**
  * description: Represents an adapter whose provider-specific request and response types are opaque to core code.
- * return: A provider adapter with unknown boundary types.
  */
 export type AnyProviderAdapter = ProviderAdapter<unknown, unknown>;
 
 /**
  * description: Stores provider adapters and resolves them without provider-specific branching in core code.
- * return: A provider adapter registry.
  */
 export class ProviderRegistry {
   private readonly adapters = new Map<ProviderId, AnyProviderAdapter>();
 
   /**
    * description: Registers adapters and rejects duplicate provider registrations.
-   * arg1: adapters - Provider adapters to register.
-   * return: A configured provider registry.
    */
   constructor(adapters: readonly AnyProviderAdapter[]) {
     for (const adapter of adapters) {
@@ -124,8 +108,6 @@ export class ProviderRegistry {
 
   /**
    * description: Resolves the adapter registered for a provider.
-   * arg1: provider - Provider identifier to resolve.
-   * return: The registered provider adapter.
    */
   get(provider: ProviderId): AnyProviderAdapter {
     const adapter = this.adapters.get(provider);
@@ -135,8 +117,6 @@ export class ProviderRegistry {
 
   /**
    * description: Checks whether an adapter is registered for a provider.
-   * arg1: provider - Provider identifier to check.
-   * return: True when an adapter is registered, otherwise false.
    */
   has(provider: ProviderId): boolean {
     return this.adapters.has(provider);
