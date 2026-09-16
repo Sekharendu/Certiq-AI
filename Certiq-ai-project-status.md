@@ -89,12 +89,18 @@ Both AlignScore and BEM were checked and confirmed usable without any Python, ru
 
 ## Current decisions and remaining questions
 
+### Implementation status and scope boundary
+
+The repository currently implements the package foundation and validated environment configuration only. The provider adapters, telemetry writes, Postgres schema, manual analysis flow, response evaluators, recommendations, and dashboard described below are Phase 1 target work and are tracked in `TODO.md` and Jira. They must not be described as available commands or supported runtime behavior until their implementation work is complete.
+
+The Phase 1 target remains deliberately narrow: non-streaming text requests for Anthropic Messages, OpenAI Responses, and Gemini; permanent raw payload storage in the developer's Postgres database; manual analysis; best-effort Vercel telemetry; and report-only recommendations. Streaming, tool calls, structured outputs, multimodal requests, scheduled analysis, retention cleanup, automatic routing, predictive routing, BERTopic, and hosted demos remain deferred.
+
 The following decisions now define the first implementation:
 
 - Raw prompts and responses are stored by default because shadow evaluation cannot work without them.
 - Development is split into two phases. Phase 1 stores all collected data permanently so the core collection, analysis, and reporting workflow can be solved first. Phase 2 adds configurable raw-payload TTLs and cleanup after the core is working.
 - Scheduled analysis is not part of the current implementation. The developer runs `analyze` manually in Phase 1. An opt-in scheduled analysis workflow can be considered after the core evaluation flow is proven.
-- The first implementation supports Anthropic's Messages API and OpenAI's Responses API, Gemini API for non-streaming text requests. Streaming, tool calls, multimodal inputs, and structured outputs are deferred.
+- The Phase 1 target supports Anthropic's Messages API, OpenAI's Responses API, and Gemini API for non-streaming text requests. Streaming, tool calls, multimodal inputs, and structured outputs are deferred.
 - Model definitions and pricing live in one versioned configuration file. Each provider has an entry containing its models, tiers, prices, capabilities, and pricing effective date.
 - Shadow testing runs through the manual `analyze` command in Phase 1, not during the live request. A future scheduled job may reuse the same analysis flow, but it is not part of the current implementation. Recommendations are report-only and never change production routing automatically.
 - A candidate model must have at least 30 eligible examples to produce an early result, and at least 50 examples to produce a normal recommendation. The initial recommendation target is at least a 90% pass rate and at least 10% lower estimated cost. These numbers must be calibrated against hand-checked examples before being treated as reliable.

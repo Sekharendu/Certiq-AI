@@ -56,7 +56,7 @@ This file tracks remaining implementation work and features intentionally deferr
 - [ ] Implement `TBD dashboard`.
 - [ ] Bind the dashboard to localhost only.
 - [ ] Add charts and filters for cost, latency, features, and recommendations.
-- [ ] Add README installation and usage instructions.
+- [x] Add README installation and usage instructions.
 - [ ] Add privacy and data-retention documentation.
 - [ ] Add architecture decision records.
 - [ ] Add system-design and scaling documentation.
