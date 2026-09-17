@@ -16,6 +16,7 @@ This file tracks remaining implementation work and features intentionally deferr
 ## Phase 1 — Provider integrations
 
 - [x] Define the common provider adapter contract.
+- [x] Implement Anthropic Messages adapter.
 
 ## Telemetry and storage
 
@@ -80,3 +81,8 @@ This file tracks remaining implementation work and features intentionally deferr
 
 - [ ] Durable telemetry queue or separate telemetry microservice.
 - [ ] Automatic scheduled shadow analysis.
+
+
+# Before lauch of 1st version
+-> do it for streaming nd multimeadia messages too(find a way)
+-> 

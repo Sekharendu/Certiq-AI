@@ -91,7 +91,7 @@ Both AlignScore and BEM were checked and confirmed usable without any Python, ru
 
 ### Implementation status and scope boundary
 
-The repository currently implements the package foundation, validated environment configuration, and the common provider adapter contract only. Provider adapter implementations, telemetry writes, Postgres schema, manual analysis flow, response evaluators, recommendations, and dashboard described below are Phase 1 target work and are tracked in `TODO.md` and Jira. They must not be described as available commands or supported runtime behavior until their implementation work is complete.
+The repository currently implements the package foundation, validated environment configuration, common provider adapter contract, and Anthropic Messages adapter. OpenAI and Gemini adapter implementations, telemetry writes, Postgres schema, manual analysis flow, response evaluators, recommendations, and dashboard described below are Phase 1 target work and are tracked in `TODO.md` and Jira. They must not be described as available commands or supported runtime behavior until their implementation work is complete.
 
 The Phase 1 target remains deliberately narrow: non-streaming text requests for Anthropic Messages, OpenAI Responses, and Gemini; permanent raw payload storage in the developer's Postgres database; manual analysis; best-effort Vercel telemetry; and report-only recommendations. Streaming, tool calls, structured outputs, multimodal requests, scheduled analysis, retention cleanup, automatic routing, predictive routing, BERTopic, and hosted demos remain deferred.
 
