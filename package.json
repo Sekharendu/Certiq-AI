@@ -14,7 +14,7 @@
     "check": "tsc -p tsconfig.json --noEmit",
     "dev": "tsx src/cli.ts",
     "start": "node dist/cli.js",
-    "test": "tsx --test src/config.test.ts src/providers/contract.test.ts src/providers/anthropic.test.ts"
+    "test": "tsx --test src/config.test.ts src/providers/contract.test.ts src/providers/anthropic.test.ts src/providers/openai.test.ts"
   },
   "engines": {
     "node": ">=20"
@@ -26,6 +26,7 @@
   },
   "packageManager": "pnpm@11.17.0",
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.126.0"
+    "@anthropic-ai/sdk": "^0.126.0",
+    "openai": "^7.17.0"
   }
 }

@@ -17,6 +17,7 @@ This file tracks remaining implementation work and features intentionally deferr
 
 - [x] Define the common provider adapter contract.
 - [x] Implement Anthropic Messages adapter.
+- [x] Implement OpenAI Responses adapter.
 
 ## Telemetry and storage
 

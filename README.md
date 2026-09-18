@@ -11,9 +11,10 @@ The repository currently contains the Phase 1 foundation:
 - Validated configuration loading from process environment variables and `.env`
 - Common provider adapter contract for normalized requests, responses, usage, and errors
 - Anthropic Messages adapter for non-streaming text requests
+- OpenAI Responses adapter for non-streaming text requests
 - pnpm-based build, type-check, and test commands
 
-OpenAI and Gemini adapters, telemetry persistence, analysis, and the dashboard are planned Phase 1 work. They are not available in the current build yet.
+Gemini adapter, telemetry persistence, analysis, and the dashboard are planned Phase 1 work. They are not available in the current build yet.
 
 ## Phase 1 Scope
 
